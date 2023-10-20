@@ -1,0 +1,29 @@
+"use client";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Separator } from "@radix-ui/react-separator";
+
+export default function HeaderProfile({ data }: any) {
+  return (
+    <div className="flex flex-col">
+      <div className="flex items-center gap-2 py-4">
+        <Avatar>
+          <AvatarFallback>{data?.user.name?.[0].toUpperCase()}</AvatarFallback>
+
+          {data?.user.image && (
+            <AvatarImage
+              className="w-[40px] rounded-full"
+              src={data?.user.image}
+            />
+          )}
+        </Avatar>
+
+        <div className="flex flex-col">
+          <p className="font-medium">{data?.user.name}</p>
+          <p className="text-sm opacity-75">Boas compras!</p>
+        </div>
+      </div>
+      <Separator />
+    </div>
+  );
+}
