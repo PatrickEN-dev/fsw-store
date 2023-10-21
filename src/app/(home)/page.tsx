@@ -1,37 +1,20 @@
-import Image from "next/image";
 import Categories from "./components/Categories";
-import { prismaClient } from "@/lib/prisma";
 import ProductList from "./components/ProductList";
 import SectionTitle from "./components/SectionTitle";
 import PromoBanner from "./components/PromoBanner";
+import {
+  getKeyboards,
+  getMouses,
+  getProductDeals,
+} from "@/helpers/getProductPrisma";
 
 export default async function Home() {
-  const productDeals = await prismaClient.product.findMany({
-    where: {
-      discountPercentage: {
-        gt: 0,
-      },
-    },
-  });
-
-  const keyBoards = await prismaClient.product.findMany({
-    where: {
-      category: {
-        slug: "keyboards",
-      },
-    },
-  });
-
-  const mouses = await prismaClient.product.findMany({
-    where: {
-      category: {
-        slug: "mouses",
-      },
-    },
-  });
+  const productDeals = await getProductDeals();
+  const keyBoards = await getKeyboards();
+  const mouses = await getMouses();
 
   return (
-    <main className="flex flex-col gap-8">
+    <main className="flex flex-col gap-8 py-8">
       <PromoBanner
         src={"/banner.svg"}
         alt={"até 55% de descontos só esse mês"}
