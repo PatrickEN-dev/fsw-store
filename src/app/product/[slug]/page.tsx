@@ -3,6 +3,7 @@ import { getProductBySlug } from "@/helpers/getProductPrisma";
 import ProductImages from "./components/ProductImage";
 import ProductInfo from "./components/ProductInfo";
 import { computeProductTotalPrice } from "@/helpers/product";
+import ProductList from "@/components/ProductList";
 
 const ProductDetailPage = async ({ params: { slug } }: IslugParams) => {
   const productBySlug = await getProductBySlug(slug);
@@ -15,6 +16,7 @@ const ProductDetailPage = async ({ params: { slug } }: IslugParams) => {
         imageUrls={productBySlug.imageUrls}
       />
       <ProductInfo product={computeProductTotalPrice(productBySlug)} />
+      <ProductList products={productBySlug.category.Products} />
     </div>
   );
 };

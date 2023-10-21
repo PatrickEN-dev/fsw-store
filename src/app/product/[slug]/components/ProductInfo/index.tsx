@@ -4,13 +4,7 @@ import ChangeQuantityButton from "@/components/ChangeQuantityButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { IProductWithTotalPrice } from "@/helpers/product";
-import {
-  ArrowDownIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  TruckIcon,
-} from "lucide-react";
-import { useState } from "react";
+import { ArrowDownIcon, TruckIcon } from "lucide-react";
 
 interface IProductInfoProps {
   product: Pick<
