@@ -1,9 +1,10 @@
+import { IslugParams } from "@/@types/globals";
 import { CATEGORY_ICON } from "@/app/constants/categoryIcon";
 import { Badge } from "@/components/ui/badge";
 import { getCategorySlugProducts } from "@/helpers/getCategoryPrisma";
 import { mapArrayToProductItems } from "@/helpers/mapArrayToProductItem";
 
-const CategoryProducts = async ({ params }: any) => {
+const CategoryProducts = async ({ params }: IslugParams) => {
   const categorySlugProducts = await getCategorySlugProducts(params);
   return (
     <div className="flex flex-col gap-8 p-5">

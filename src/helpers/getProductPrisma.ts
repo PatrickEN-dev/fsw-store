@@ -29,3 +29,11 @@ export async function getMouses() {
     },
   });
 }
+
+export async function getProductBySlug(slug: string) {
+  return await prismaClient.product.findFirst({
+    where: {
+      slug,
+    },
+  });
+}
