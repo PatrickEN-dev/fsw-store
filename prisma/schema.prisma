@@ -12,7 +12,7 @@ model Category {
   name     String
   slug     String
   imageUrl String
-  Product  Product[]
+  Products Product[]
 }
 
 model Product {
