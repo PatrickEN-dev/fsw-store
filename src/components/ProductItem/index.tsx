@@ -10,7 +10,7 @@ interface IProductItemProps {
 const ProductItem = ({ product }: IProductItemProps) => {
   return (
     <div className="flex flex-col gap-4">
-      <div className=" relative flex h-[170px] w-[156px] max-w-[156px] items-center justify-center rounded-lg bg-accent">
+      <div className="relative flex h-[170px] w-full items-center justify-center rounded-lg bg-accent">
         <Image
           src={product.imageUrls[0]}
           alt={product.name}
@@ -28,7 +28,7 @@ const ProductItem = ({ product }: IProductItemProps) => {
         )}
       </div>
 
-      <span className="flex flex-col gap-1">
+      <span className="flex flex-col gap-2">
         <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
           {product.name}
         </p>
@@ -36,14 +36,18 @@ const ProductItem = ({ product }: IProductItemProps) => {
         <div className="flex items-center gap-2">
           {product.discountPercentage > 0 ? (
             <>
-              <p className="font-semibold">R${product.totalPrice.toFixed(2)}</p>
+              <p className="overflow-hidden text-ellipsis whitespace-nowrap font-semibold">
+                R${product.totalPrice.toFixed(2)}
+              </p>
 
-              <p className=" text-xs line-through opacity-75">
+              <p className="overflow-hidden text-ellipsis whitespace-nowrap text-xs line-through opacity-75">
                 R${Number(product.basePrice).toFixed(2)}
               </p>
             </>
           ) : (
-            <p className="font-semibold">R${product.basePrice.toFixed(2)}</p>
+            <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+              R${product.basePrice.toFixed(2)}
+            </p>
           )}
         </div>
       </span>
