@@ -4,30 +4,36 @@ import ChangeQuantityButton from "@/components/ChangeQuantityButton";
 import DiscountBadge from "@/components/DiscountBadge";
 import { Button } from "@/components/ui/button";
 import { IProductWithTotalPrice } from "@/helpers/product";
+import { useCart } from "@/hooks/useCart";
+import { useProduct } from "@/hooks/useProduct";
 import { TruckIcon } from "lucide-react";
 
 interface IProductInfoProps {
-  product: Pick<
-    IProductWithTotalPrice,
-    "basePrice" | "discountPercentage" | "description" | "totalPrice" | "name"
-  >;
+  product: IProductWithTotalPrice;
 }
 
-const ProductInfo = ({
-  product: { basePrice, description, discountPercentage, totalPrice, name },
-}: IProductInfoProps) => {
+const ProductInfo = ({ product }: IProductInfoProps) => {
+  const { addProductToCart } = useCart();
+  const { quantity } = useProduct();
+
+  const handleAddToCartClick = () => {
+    addProductToCart({ ...product, quantity });
+  };
+
   return (
     <div className="flex flex-col px-5">
-      <h1 className="text-lg">{name}</h1>
+      <h1 className="text-lg">{product.name}</h1>
       <span className="flex items-center gap-1">
-        <h2 className="gap-2 text-2xl font-bold">{totalPrice.toFixed(2)}</h2>
-        {discountPercentage > 0 && (
-          <DiscountBadge>{discountPercentage}</DiscountBadge>
+        <h2 className="gap-2 text-2xl font-bold">
+          {product.totalPrice.toFixed(2)}
+        </h2>
+        {product.discountPercentage > 0 && (
+          <DiscountBadge>{product.discountPercentage}</DiscountBadge>
         )}
       </span>
-      {discountPercentage > 0 && (
+      {product.discountPercentage > 0 && (
         <p className="text-sm line-through opacity-75">
-          R${Number(basePrice).toFixed(2)}
+          R${Number(product.basePrice).toFixed(2)}
         </p>
       )}
 
@@ -35,10 +41,13 @@ const ProductInfo = ({
 
       <section className="mt-8 flex flex-col gap-3">
         <h3 className="text-base font-bold">Descrição</h3>
-        <p className="text-justify text-sm opacity-60">{description}</p>
+        <p className="text-justify text-sm opacity-60">{product.description}</p>
       </section>
 
-      <Button className="mt-8 font-bold uppercase">
+      <Button
+        onClick={handleAddToCartClick}
+        className="mt-8 font-bold uppercase"
+      >
         Adicionar ao carrinho
       </Button>
 

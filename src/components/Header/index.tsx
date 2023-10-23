@@ -22,6 +22,7 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react";
 import HeaderProfile from "./HeaderProfile";
 import Link from "next/link";
+import Cart from "../Cart";
 
 function Header() {
   const { status, data } = useSession();
@@ -126,9 +127,17 @@ function Header() {
         </h1>
       </Link>
 
-      <Button size="icon" variant="outline">
-        <ShoppingCartIcon />
-      </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button size="icon" variant="outline">
+            <ShoppingCartIcon />
+          </Button>
+        </SheetTrigger>
+
+        <SheetContent>
+          <Cart />
+        </SheetContent>
+      </Sheet>
     </Card>
   );
 }

@@ -1,11 +1,11 @@
 "use client";
 
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import { useState } from "react";
 import { Button } from "../ui/button";
+import { useProduct } from "@/hooks/useProduct";
 
 const ChangeQuantityButton = () => {
-  const [quantity, setQuantity] = useState(1);
+  const { quantity, setQuantity } = useProduct();
 
   const handleDecreaseQuantityClick = () => {
     setQuantity((prev) => (prev === 1 ? prev : prev - 1));
