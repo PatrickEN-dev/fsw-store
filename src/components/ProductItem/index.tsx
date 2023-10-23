@@ -1,8 +1,7 @@
 import { IProductWithTotalPrice } from "@/helpers/product";
 import Image from "next/image";
-import { Badge } from "../ui/badge";
-import { ArrowDownIcon } from "lucide-react";
 import Link from "next/link";
+import DiscountBadge from "../DiscountBadge";
 
 interface IProductItemProps {
   product: IProductWithTotalPrice;
@@ -23,10 +22,9 @@ const ProductItem = ({ product }: IProductItemProps) => {
             style={{ objectFit: "contain" }}
           />
           {product.discountPercentage > 0 && (
-            <Badge className="absolute left-2 top-2 px-2 py-[2px]">
-              <ArrowDownIcon size={14} />
-              {product.discountPercentage}%
-            </Badge>
+            <DiscountBadge className="absolute left-2 top-2">
+              {product.discountPercentage}
+            </DiscountBadge>
           )}
         </div>
 

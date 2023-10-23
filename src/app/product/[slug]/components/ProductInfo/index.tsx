@@ -1,10 +1,10 @@
 "use client";
 
 import ChangeQuantityButton from "@/components/ChangeQuantityButton";
-import { Badge } from "@/components/ui/badge";
+import DiscountBadge from "@/components/DiscountBadge";
 import { Button } from "@/components/ui/button";
 import { IProductWithTotalPrice } from "@/helpers/product";
-import { ArrowDownIcon, TruckIcon } from "lucide-react";
+import { TruckIcon } from "lucide-react";
 
 interface IProductInfoProps {
   product: Pick<
@@ -22,10 +22,7 @@ const ProductInfo = ({
       <span className="flex items-center gap-1">
         <h2 className="gap-2 text-2xl font-bold">{totalPrice.toFixed(2)}</h2>
         {discountPercentage > 0 && (
-          <Badge className="left-2 top-2 px-2 py-[2px]">
-            <ArrowDownIcon size={14} />
-            {discountPercentage}%
-          </Badge>
+          <DiscountBadge>{discountPercentage}</DiscountBadge>
         )}
       </span>
       {discountPercentage > 0 && (
