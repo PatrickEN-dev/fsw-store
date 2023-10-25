@@ -4,6 +4,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useProduct } from "@/hooks/useProduct";
 import { twMerge } from "tailwind-merge";
+import { useCart } from "@/hooks/useCart";
 
 interface IChangeQuantityButtonProps {
   mainDivClassName?: string;
@@ -12,6 +13,7 @@ interface IChangeQuantityButtonProps {
   spanClassName?: string;
   ArrowLeftIconClassName?: string;
   ArrowRightIconClassName?: string;
+  props?: any;
 }
 
 const ChangeQuantityButton = ({
@@ -21,14 +23,21 @@ const ChangeQuantityButton = ({
   spanClassName,
   ArrowLeftIconClassName,
   ArrowRightIconClassName,
+  props,
 }: IChangeQuantityButtonProps) => {
   const { quantity, setQuantity } = useProduct();
+
+  const { increaseProductQuantity, decreaseProductQuantity } = useCart();
 
   const handleDecreaseQuantityClick = () => {
     setQuantity((prev) => (prev === 1 ? prev : prev - 1));
   };
 
   const handleIncreaseQuantityClick = () => setQuantity((prev) => prev + 1);
+
+  // const handleDecreaseroductQuantityClick = () => {
+  //   decreaseProductQuantity(props.id)
+  // }
 
   return (
     <div className={twMerge("px-2 py-[2px]", mainDivClassName)}>

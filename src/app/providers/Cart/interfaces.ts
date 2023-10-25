@@ -10,4 +10,7 @@ export interface ICartContext {
   cartBasePrice: number;
   cartTotalDiscount: number;
   addProductToCart: (product: ICartProduct) => void;
+  decreaseProductQuantity: (productId: string) => void;
+  increaseProductQuantity: (productId: string) => void;
+  removeProductFromCart: (productId: string) => void;
 }

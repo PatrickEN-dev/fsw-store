@@ -6,10 +6,13 @@ import { ICartContext, ICartProduct } from "./interfaces";
 
 export const CartContext = createContext<ICartContext>({
   products: [],
-  cartBasePrice: 0,
   cartTotalPrice: 0,
+  cartBasePrice: 0,
   cartTotalDiscount: 0,
   addProductToCart: () => {},
+  decreaseProductQuantity: () => {},
+  increaseProductQuantity: () => {},
+  removeProductFromCart: () => {},
 });
 
 export const CartProvider = ({ children }: IChildrenProps) => {
@@ -86,6 +89,9 @@ export const CartProvider = ({ children }: IChildrenProps) => {
         cartTotalPrice: 0,
         cartTotalDiscount: 0,
         addProductToCart,
+        increaseProductQuantity,
+        decreaseProductQuantity,
+        removeProductFromCart,
       }}
     >
       {children}

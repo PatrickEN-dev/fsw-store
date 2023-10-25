@@ -3,13 +3,31 @@ import Image from "next/image";
 import ProductPrice from "../ProductBasePrice";
 import ChangeQuantityButton from "../ChangeQuantityButton";
 import { Button } from "../ui/button";
-import { TrashIcon } from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon, TrashIcon } from "lucide-react";
+import { useCart } from "@/hooks/useCart";
 
 interface ICartItemProps {
   product: ICartProduct;
 }
 
 const CartItem = ({ product }: ICartItemProps) => {
+  const {
+    decreaseProductQuantity,
+    increaseProductQuantity,
+    removeProductFromCart,
+  } = useCart();
+
+  const handleDecreaseProductQuantityClick = () => {
+    decreaseProductQuantity(product.id);
+  };
+
+  const handleIncreaseProductQuantityClick = () => {
+    increaseProductQuantity(product.id);
+  };
+
+  const handleRemoveProductClick = () => {
+    removeProductFromCart(product.id);
+  };
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
@@ -42,10 +60,30 @@ const CartItem = ({ product }: ICartItemProps) => {
               />
             )}
           </div>
-          <ChangeQuantityButton />
+          <div className="flex items-center gap-1">
+            <Button
+              size="icon"
+              variant="outline"
+              className="h-8 w-8"
+              onClick={handleDecreaseProductQuantityClick}
+            >
+              <ArrowLeftIcon size={16} />
+            </Button>
+
+            <span className="text-xs">{product.quantity}</span>
+
+            <Button
+              size="icon"
+              variant="outline"
+              className="h-8 w-8"
+              onClick={handleIncreaseProductQuantityClick}
+            >
+              <ArrowRightIcon size={16} />
+            </Button>
+          </div>
         </div>
       </div>
-      <Button size={"icon"} variant={"outline"}>
+      <Button size="icon" variant="outline" onClick={handleRemoveProductClick}>
         <TrashIcon size={16} />
       </Button>
     </div>
