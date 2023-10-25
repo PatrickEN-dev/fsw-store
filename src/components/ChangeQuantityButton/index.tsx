@@ -3,8 +3,25 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useProduct } from "@/hooks/useProduct";
+import { twMerge } from "tailwind-merge";
 
-const ChangeQuantityButton = () => {
+interface IChangeQuantityButtonProps {
+  mainDivClassName?: string;
+  decreaseButtonClassName?: string;
+  increaseButtonClassName?: string;
+  spanClassName?: string;
+  ArrowLeftIconClassName?: string;
+  ArrowRightIconClassName?: string;
+}
+
+const ChangeQuantityButton = ({
+  mainDivClassName,
+  decreaseButtonClassName,
+  increaseButtonClassName,
+  spanClassName,
+  ArrowLeftIconClassName,
+  ArrowRightIconClassName,
+}: IChangeQuantityButtonProps) => {
   const { quantity, setQuantity } = useProduct();
 
   const handleDecreaseQuantityClick = () => {
@@ -14,23 +31,31 @@ const ChangeQuantityButton = () => {
   const handleIncreaseQuantityClick = () => setQuantity((prev) => prev + 1);
 
   return (
-    <div className="mt-4 flex items-center gap-2">
+    <div className={twMerge("px-2 py-[2px]", mainDivClassName)}>
       <Button
         size={"icon"}
         variant={"outline"}
         onClick={handleDecreaseQuantityClick}
+        className={twMerge("", decreaseButtonClassName)}
       >
-        <ArrowLeftIcon size={16} />
+        <ArrowLeftIcon
+          size={16}
+          className={twMerge("", ArrowLeftIconClassName)}
+        />
       </Button>
 
-      <span>{quantity}</span>
+      <span className={twMerge("", spanClassName)}>{quantity}</span>
 
       <Button
         size={"icon"}
         variant={"outline"}
         onClick={handleIncreaseQuantityClick}
+        className={twMerge("", increaseButtonClassName)}
       >
-        <ArrowRightIcon size={16} />
+        <ArrowRightIcon
+          size={16}
+          className={twMerge("", ArrowRightIconClassName)}
+        />
       </Button>
     </div>
   );

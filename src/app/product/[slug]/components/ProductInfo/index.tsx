@@ -2,7 +2,9 @@
 
 import ChangeQuantityButton from "@/components/ChangeQuantityButton";
 import DiscountBadge from "@/components/DiscountBadge";
+import ProductPrice from "@/components/ProductBasePrice";
 import { Button } from "@/components/ui/button";
+import formatPrice from "@/helpers/formatPrice";
 import { IProductWithTotalPrice } from "@/helpers/product";
 import { useCart } from "@/hooks/useCart";
 import { useProduct } from "@/hooks/useProduct";
@@ -25,19 +27,20 @@ const ProductInfo = ({ product }: IProductInfoProps) => {
       <h1 className="text-lg">{product.name}</h1>
       <span className="flex items-center gap-1">
         <h2 className="gap-2 text-2xl font-bold">
-          {product.totalPrice.toFixed(2)}
+          {formatPrice(product.totalPrice)}
         </h2>
         {product.discountPercentage > 0 && (
           <DiscountBadge>{product.discountPercentage}</DiscountBadge>
         )}
       </span>
       {product.discountPercentage > 0 && (
-        <p className="text-sm line-through opacity-75">
-          R${Number(product.basePrice).toFixed(2)}
-        </p>
+        <ProductPrice
+          price={Number(product.basePrice)}
+          className="text-sm line-through opacity-75"
+        />
       )}
 
-      <ChangeQuantityButton />
+      <ChangeQuantityButton mainDivClassName="mt-4 flex items-center gap-2" />
 
       <section className="mt-8 flex flex-col gap-3">
         <h3 className="text-base font-bold">Descrição</h3>

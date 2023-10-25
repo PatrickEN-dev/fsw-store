@@ -9,3 +9,7 @@ export interface IslugParams {
 export interface IChildrenProps {
   children: React.ReactNode;
 }
+
+export interface IClassNameProps {
+  className?: string;
+}

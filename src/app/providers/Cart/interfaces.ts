@@ -1,6 +1,6 @@
-import { Product } from "@prisma/client";
+import { IProductWithTotalPrice } from "@/helpers/product";
 
-export interface ICartProduct extends Product {
+export interface ICartProduct extends IProductWithTotalPrice {
   quantity: number;
 }
 

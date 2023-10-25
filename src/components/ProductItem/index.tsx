@@ -2,6 +2,7 @@ import { IProductWithTotalPrice } from "@/helpers/product";
 import Image from "next/image";
 import Link from "next/link";
 import DiscountBadge from "../DiscountBadge";
+import ProductBasePrice from "../ProductBasePrice";
 
 interface IProductItemProps {
   product: IProductWithTotalPrice;
@@ -36,18 +37,20 @@ const ProductItem = ({ product }: IProductItemProps) => {
           <div className="flex items-center gap-2">
             {product.discountPercentage > 0 ? (
               <>
-                <p className="overflow-hidden text-ellipsis whitespace-nowrap font-semibold">
-                  R${product.totalPrice.toFixed(2)}
-                </p>
-
-                <p className="overflow-hidden text-ellipsis whitespace-nowrap text-xs line-through opacity-75">
-                  R${Number(product.basePrice).toFixed(2)}
-                </p>
+                <ProductBasePrice
+                  price={product.totalPrice}
+                  className="overflow-hidden text-ellipsis whitespace-nowrap font-semibold"
+                />
+                <ProductBasePrice
+                  price={Number(product.basePrice)}
+                  className="overflow-hidden text-ellipsis whitespace-nowrap text-xs line-through opacity-75"
+                />
               </>
             ) : (
-              <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
-                R${product.basePrice.toFixed(2)}
-              </p>
+              <ProductBasePrice
+                price={Number(product.basePrice)}
+                className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold"
+              />
             )}
           </div>
         </span>
