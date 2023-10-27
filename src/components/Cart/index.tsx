@@ -3,9 +3,17 @@ import { Badge } from "../ui/badge";
 import { useCart } from "@/hooks/useCart";
 import CartItem from "../CartItem";
 import { computeProductTotalPrice } from "@/helpers/product";
+import { Separator } from "../ui/separator";
+import formatPrice from "@/helpers/formatPrice";
+import CartSummaryItem from "../CartSummaryItem";
 
 const Cart = () => {
-  const { products } = useCart();
+  const {
+    products,
+    subTotalProductPriceWithoutDiscount,
+    totalProductDiscount,
+    totalProductPriceWithDiscount,
+  } = useCart();
   return (
     <section className="flex flex-col gap-8">
       <header>
@@ -32,6 +40,34 @@ const Cart = () => {
           </p>
         )}
       </main>
+
+      <div className="flex flex-col gap-3">
+        <Separator />
+
+        <CartSummaryItem
+          label="Subtotal"
+          value={formatPrice(subTotalProductPriceWithoutDiscount)}
+        />
+
+        <Separator />
+
+        <CartSummaryItem label="Entrega" value="GRÁTIS" />
+
+        <Separator />
+
+        <CartSummaryItem
+          label="Descontos"
+          value={formatPrice(totalProductDiscount)}
+        />
+
+        <Separator />
+
+        <CartSummaryItem
+          label="Total"
+          value={formatPrice(totalProductPriceWithDiscount)}
+          isBold
+        />
+      </div>
     </section>
   );
 };
