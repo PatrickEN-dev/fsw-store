@@ -1,9 +1,9 @@
 import "./globals.css";
 import Header from "@/components/Header";
-import { AuthProvider } from "./providers/auth";
 import Footer from "@/components/Footer";
-import { CartProvider } from "./providers/Cart/cart.context";
-import { ProductProvider } from "./providers/Product/product.context";
+import { AuthProvider } from "@/providers/auth/auth.context";
+import { ProductProvider } from "@/providers/product/product.context";
+import { CartProvider } from "@/providers/cart/cart.context";
 
 export default function RootLayout({
   children,

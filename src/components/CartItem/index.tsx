@@ -28,6 +28,7 @@ const CartItem = ({ product }: ICartItemProps) => {
   const handleRemoveProductClick = () => {
     removeProductFromCart(product.id);
   };
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">

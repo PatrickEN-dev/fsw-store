@@ -17,12 +17,18 @@ const Cart = () => {
       </Badge>
 
       <div className="flex flex-col gap-5">
-        {products.map((product) => (
-          <CartItem
-            key={product.id}
-            product={computeProductTotalPrice(product as any) as any}
-          />
-        ))}
+        {products.length > 0 ? (
+          products.map((product) => (
+            <CartItem
+              key={product.id}
+              product={computeProductTotalPrice(product as any) as any}
+            />
+          ))
+        ) : (
+          <p className="text-center font-semibold">
+            Você ainda não adicionou um produto ao carrinho
+          </p>
+        )}
       </div>
     </div>
   );
