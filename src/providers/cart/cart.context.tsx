@@ -1,7 +1,7 @@
 "use client";
 
 import { IChildrenProps } from "@/@types/globals";
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 import { ICartContext, ICartProduct } from "./interfaces";
 
 export const CartContext = createContext<ICartContext>({
@@ -9,6 +9,9 @@ export const CartContext = createContext<ICartContext>({
   cartTotalPrice: 0,
   cartBasePrice: 0,
   cartTotalDiscount: 0,
+  subTotalProductPriceWithoutDiscount: 0,
+  totalProductPriceWithDiscount: 0,
+  totalProductDiscount: 0,
   addProductToCart: () => {},
   decreaseProductQuantity: () => {},
   increaseProductQuantity: () => {},
@@ -17,6 +20,21 @@ export const CartContext = createContext<ICartContext>({
 
 export const CartProvider = ({ children }: IChildrenProps) => {
   const [products, setProducts] = useState<ICartProduct[]>([]);
+
+  const subTotalProductPriceWithoutDiscount = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + Number(product.basePrice);
+    }, 0);
+  }, [products]);
+
+  const totalProductPriceWithDiscount = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + product.totalPrice;
+    }, 0);
+  }, [products]);
+
+  const totalProductDiscount =
+    totalProductPriceWithDiscount - subTotalProductPriceWithoutDiscount;
 
   const addProductToCart = (product: ICartProduct) => {
     const productIsAlreadyOnCart = products.some(
@@ -88,6 +106,9 @@ export const CartProvider = ({ children }: IChildrenProps) => {
         cartBasePrice: 0,
         cartTotalPrice: 0,
         cartTotalDiscount: 0,
+        subTotalProductPriceWithoutDiscount,
+        totalProductPriceWithDiscount,
+        totalProductDiscount,
         addProductToCart,
         increaseProductQuantity,
         decreaseProductQuantity,

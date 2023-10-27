@@ -1,10 +1,9 @@
-import { ICartProduct } from "@/app/providers/Cart/interfaces";
 import Image from "next/image";
 import ProductPrice from "../ProductBasePrice";
-import ChangeQuantityButton from "../ChangeQuantityButton";
 import { Button } from "../ui/button";
 import { ArrowLeftIcon, ArrowRightIcon, TrashIcon } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
+import { ICartProduct } from "@/providers/cart/interfaces";
 
 interface ICartItemProps {
   product: ICartProduct;
@@ -30,7 +29,7 @@ const CartItem = ({ product }: ICartItemProps) => {
   };
 
   return (
-    <div className="flex items-center justify-between">
+    <article className="flex items-center justify-between">
       <div className="flex items-center gap-4">
         <figure className="flex h-[77px] w-[77px] items-center justify-center rounded-lg bg-accent">
           <Image
@@ -47,7 +46,7 @@ const CartItem = ({ product }: ICartItemProps) => {
         </figure>
 
         <div className="flex flex-col">
-          <p className="text-xs">{product.name}</p>
+          <h2 className="text-xs">{product.name}</h2>
 
           <div className="flex items-center gap-2">
             <ProductPrice
@@ -87,7 +86,7 @@ const CartItem = ({ product }: ICartItemProps) => {
       <Button size="icon" variant="outline" onClick={handleRemoveProductClick}>
         <TrashIcon size={16} />
       </Button>
-    </div>
+    </article>
   );
 };
 
