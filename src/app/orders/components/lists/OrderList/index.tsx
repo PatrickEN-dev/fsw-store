@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import OrderItem from "../OrderItem";
+import OrderItem from "../../items/OrderItem";
 
 interface IOrderListProps {
   orders: Prisma.OrderGetPayload<{

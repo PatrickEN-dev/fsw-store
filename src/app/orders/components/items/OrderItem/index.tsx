@@ -7,8 +7,10 @@ import {
 } from "@/components/ui/accordion";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
+import OrderProductItem from "../OrderProductItem";
+import OrderProductItemList from "../../lists/OrderProductItemList";
 
-interface IOrderItemProps {
+export interface IOrderItemProps {
   order: Prisma.OrderGetPayload<{
     include: {
       orderProducts: {
@@ -29,7 +31,7 @@ const OrderItem = ({ order }: IOrderItemProps) => {
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="flex flex-col">
+            <section className="flex flex-col">
               <div className="flex items-center justify-between">
                 <div className="font-bold">
                   <p>Status</p>
@@ -47,7 +49,8 @@ const OrderItem = ({ order }: IOrderItemProps) => {
                   <span className="opacity-60">Cartão</span>
                 </div>
               </div>
-            </div>
+              <OrderProductItemList orderProducts={order.orderProducts} />
+            </section>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
