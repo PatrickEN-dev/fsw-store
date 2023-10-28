@@ -3,7 +3,10 @@
 import { ICartProduct } from "@/providers/cart/interfaces";
 import Stripe from "stripe";
 
-export const createCheckout = async (products: ICartProduct[]) => {
+export const createCheckout = async (
+  products: ICartProduct[],
+  orderId: string,
+) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: "2023-10-16",
   });
@@ -13,6 +16,9 @@ export const createCheckout = async (products: ICartProduct[]) => {
     mode: "payment",
     success_url: process.env.HOST_URL,
     cancel_url: process.env.HOST_URL,
+    metadata: {
+      orderId,
+    },
     line_items: products.map((product) => {
       return {
         price_data: {

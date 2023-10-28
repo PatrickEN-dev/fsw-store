@@ -25,11 +25,11 @@ const Cart = () => {
 
   const handleFinishPourchaseClick = async () => {
     // TODO: redirecionar para o login
-    if (!data?.user) return;
+    if (!data?.user) return alert("Você precisa fazer login para continuar");
 
-    await createOrder(products, (data?.user as User).id);
+    const order = await createOrder(products, (data?.user as User).id);
 
-    const checkout = await createCheckout(products);
+    const checkout = await createCheckout(products, order.id);
 
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
