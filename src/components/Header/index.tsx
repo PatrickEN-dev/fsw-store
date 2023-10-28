@@ -9,6 +9,7 @@ import {
   HomeIcon,
   LogOutIcon,
   PercentIcon,
+  PackageSearchIcon,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
@@ -107,13 +108,13 @@ function Header() {
             </SheetClose>
 
             <SheetClose asChild>
-              <Link href="/catalog">
+              <Link href="/orders">
                 <Button
                   variant="outline"
                   className="w-full justify-start gap-2"
                 >
-                  <ListOrderedIcon size={16} />
-                  Pedidos
+                  <PackageSearchIcon size={16} />
+                  Meus Pedidos
                 </Button>
               </Link>
             </SheetClose>
