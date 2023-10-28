@@ -27,7 +27,7 @@ const Cart = () => {
     // TODO: redirecionar para o login
     if (!data?.user) return;
 
-    const order = await createOrder(products, (data?.user as User).id);
+    await createOrder(products, (data?.user as User).id);
 
     const checkout = await createCheckout(products);
 
