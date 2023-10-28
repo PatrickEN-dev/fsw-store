@@ -10,8 +10,12 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 import { createCheckout } from "@/actions/checkout";
 import { loadStripe } from "@stripe/stripe-js";
+import { createOrder } from "@/actions/order";
+import { useSession } from "next-auth/react";
+import { User } from "@prisma/client";
 
 const Cart = () => {
+  const { data } = useSession();
   const {
     products,
     subTotalProductPriceWithoutDiscount,
@@ -20,6 +24,11 @@ const Cart = () => {
   } = useCart();
 
   const handleFinishPourchaseClick = async () => {
+    // TODO: redirecionar para o login
+    if (!data?.user) return;
+
+    const order = await createOrder(products, (data?.user as User).id);
+
     const checkout = await createCheckout(products);
 
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
