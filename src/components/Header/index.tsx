@@ -134,7 +134,7 @@ function Header() {
           </Button>
         </SheetTrigger>
 
-        <SheetContent>
+        <SheetContent className="w-[80%]">
           <Cart />
         </SheetContent>
       </Sheet>
