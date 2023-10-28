@@ -1,11 +1,9 @@
 "use server";
 
-import { useCart } from "@/hooks/useCart";
 import { ICartProduct } from "@/providers/cart/interfaces";
 import Stripe from "stripe";
 
 export const createCheckout = async (products: ICartProduct[]) => {
-  const { totalProductDiscount } = useCart();
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: "2023-10-16",
   });
@@ -13,8 +11,8 @@ export const createCheckout = async (products: ICartProduct[]) => {
   const checkout = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",
-    success_url: "http://localhost:3000",
-    cancel_url: "http://localhost:3000",
+    success_url: process.env.HOST_URL,
+    cancel_url: process.env.HOST_URL,
     line_items: products.map((product) => {
       return {
         price_data: {
