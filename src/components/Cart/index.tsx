@@ -51,48 +51,52 @@ const Cart = () => {
                 />
               ))
             ) : (
-              <p className="text-center font-semibold">
-                Você ainda não adicionou um produto ao carrinho
+              <p className="mt-10 text-center font-semibold">
+                Você ainda não adicionou produtos ao carrinho
               </p>
             )}
           </div>
         </ScrollArea>
       </main>
 
-      <div className="flex flex-col gap-3">
-        <Separator />
+      {products.length > 0 && (
+        <>
+          <div className="flex flex-col gap-3">
+            <Separator />
 
-        <CartSummaryItem
-          label="Subtotal"
-          value={formatPrice(subTotalProductPriceWithoutDiscount)}
-        />
+            <CartSummaryItem
+              label="Subtotal"
+              value={formatPrice(subTotalProductPriceWithoutDiscount)}
+            />
 
-        <Separator />
+            <Separator />
 
-        <CartSummaryItem label="Entrega" value="GRÁTIS" />
+            <CartSummaryItem label="Entrega" value="GRÁTIS" />
 
-        <Separator />
+            <Separator />
 
-        <CartSummaryItem
-          label="Descontos"
-          value={formatPrice(totalProductDiscount)}
-        />
+            <CartSummaryItem
+              label="Descontos"
+              value={formatPrice(totalProductDiscount)}
+            />
 
-        <Separator />
+            <Separator />
 
-        <CartSummaryItem
-          label="Total"
-          value={formatPrice(totalProductPriceWithDiscount)}
-          isBold
-        />
-      </div>
+            <CartSummaryItem
+              label="Total"
+              value={formatPrice(totalProductPriceWithDiscount)}
+              isBold
+            />
+          </div>
 
-      <Button
-        className="mt-7 font-bold uppercase"
-        onClick={handleFinishPourchaseClick}
-      >
-        Finalizar compra
-      </Button>
+          <Button
+            className="mt-7 font-bold uppercase"
+            onClick={handleFinishPourchaseClick}
+          >
+            Finalizar compra
+          </Button>
+        </>
+      )}
     </section>
   );
 };
