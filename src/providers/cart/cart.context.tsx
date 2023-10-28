@@ -1,7 +1,7 @@
 "use client";
 
 import { IChildrenProps } from "@/@types/globals";
-import { createContext, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { ICartContext, ICartProduct } from "./interfaces";
 
 export const CartContext = createContext<ICartContext>({
@@ -20,6 +20,16 @@ export const CartContext = createContext<ICartContext>({
 
 export const CartProvider = ({ children }: IChildrenProps) => {
   const [products, setProducts] = useState<ICartProduct[]>([]);
+
+  useEffect(() => {
+    setProducts(
+      JSON.parse(localStorage.getItem("@fsw-store/cart:products") || "[]"),
+    );
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("@fsw-store/cart:products", JSON.stringify(products));
+  }, [products]);
 
   const subTotalProductPriceWithoutDiscount = useMemo(() => {
     return products.reduce((acc, product) => {
