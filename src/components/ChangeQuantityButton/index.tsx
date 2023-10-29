@@ -27,17 +27,11 @@ const ChangeQuantityButton = ({
 }: IChangeQuantityButtonProps) => {
   const { quantity, setQuantity } = useProduct();
 
-  const { increaseProductQuantity, decreaseProductQuantity } = useCart();
-
   const handleDecreaseQuantityClick = () => {
     setQuantity((prev) => (prev === 1 ? prev : prev - 1));
   };
 
   const handleIncreaseQuantityClick = () => setQuantity((prev) => prev + 1);
-
-  // const handleDecreaseroductQuantityClick = () => {
-  //   decreaseProductQuantity(props.id)
-  // }
 
   return (
     <div className={twMerge("px-2 py-[2px]", mainDivClassName)}>

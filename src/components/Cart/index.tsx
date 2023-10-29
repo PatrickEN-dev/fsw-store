@@ -5,7 +5,6 @@ import CartItem from "../CartItem";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { Separator } from "../ui/separator";
 import formatPrice from "@/helpers/formatPrice";
-import CartSummaryItem from "../CartSummaryItem";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 import { createCheckout } from "@/actions/checkout";
@@ -13,6 +12,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { createOrder } from "@/actions/order";
 import { useSession } from "next-auth/react";
 import { User } from "@prisma/client";
+import SummaryItem from "../SummaryItem";
 
 const Cart = () => {
   const { data } = useSession();
@@ -73,25 +73,25 @@ const Cart = () => {
           <div className="flex flex-col gap-3">
             <Separator />
 
-            <CartSummaryItem
+            <SummaryItem
               label="Subtotal"
               value={formatPrice(subTotalProductPriceWithoutDiscount)}
             />
 
             <Separator />
 
-            <CartSummaryItem label="Entrega" value="GRÁTIS" />
+            <SummaryItem label="Entrega" value="GRÁTIS" />
 
             <Separator />
 
-            <CartSummaryItem
+            <SummaryItem
               label="Descontos"
               value={formatPrice(totalProductDiscount)}
             />
 
             <Separator />
 
-            <CartSummaryItem
+            <SummaryItem
               label="Total"
               value={formatPrice(totalProductPriceWithDiscount)}
               isBold

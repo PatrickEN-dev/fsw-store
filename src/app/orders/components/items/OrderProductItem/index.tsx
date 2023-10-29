@@ -15,7 +15,7 @@ const OrderProductItem = ({ orderProduct }: IOrderProductItemProps) => {
   const productWithTotalPrice = computeProductTotalPrice(orderProduct.product);
   return (
     <li className="flex items-center gap-4">
-      <figure className="flex h-[77px] w-[77px] items-center justify-center rounded-lg bg-accent">
+      <figure className="flex h-[77px] w-[85px] items-center justify-center rounded-lg bg-accent">
         <Image
           src={orderProduct.product.imageUrls[0]}
           width={0}

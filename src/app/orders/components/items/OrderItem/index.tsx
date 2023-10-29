@@ -8,6 +8,11 @@ import {
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import OrderProductItemList from "../../lists/OrderProductItemList";
+import { Separator } from "@/components/ui/separator";
+import SummaryItem from "@/components/SummaryItem";
+import formatPrice from "@/helpers/formatPrice";
+import { useMemo } from "react";
+import { computeProductTotalPrice } from "@/helpers/product";
 
 export interface IOrderItemProps {
   order: Prisma.OrderGetPayload<{
@@ -20,15 +25,37 @@ export interface IOrderItemProps {
 }
 
 const OrderItem = ({ order }: IOrderItemProps) => {
+  const orderSubtotalPrice = useMemo(() => {
+    return order.orderProducts.reduce((acc, orderProduct) => {
+      return (
+        acc + Number(orderProduct.product.basePrice) * orderProduct.quantity
+      );
+    }, 0);
+  }, [order.orderProducts]);
+
+  const orderTotalPrice = useMemo(() => {
+    return order.orderProducts.reduce((acc, orderProduct) => {
+      const productTotalPrice = computeProductTotalPrice(orderProduct.product);
+
+      return acc + productTotalPrice.totalPrice * orderProduct.quantity;
+    }, 0);
+  }, [order.orderProducts]);
+
+  const orderTotalDiscounts = orderTotalPrice - orderSubtotalPrice;
+
   return (
     <Card className="px-5">
       <Accordion type="single" className="w-full" collapsible>
         <AccordionItem value={order.id}>
           <AccordionTrigger>
             <div className="flex flex-col gap-1 text-left">
-              <p>Pedido com {order.orderProducts.length} produto(s)</p>
+              <h2>Pedido com {order.orderProducts.length} produto(s)</h2>
+              <span className="text-xs opacity-60">
+                Feito em {format(order.createdAt, "dd/MM/yyyy 'às' HH:mm")}
+              </span>
             </div>
           </AccordionTrigger>
+
           <AccordionContent>
             <section className="flex flex-col">
               <div className="flex items-center justify-between">
@@ -50,6 +77,40 @@ const OrderItem = ({ order }: IOrderItemProps) => {
               </div>
               <OrderProductItemList orderProducts={order.orderProducts} />
             </section>
+
+            <div className="flex w-full flex-col gap-1 text-xs">
+              <Separator />
+
+              <SummaryItem
+                label="Subtotal"
+                value={formatPrice(orderSubtotalPrice)}
+                extraClasses="py-3 lg:text-sm w-full"
+              />
+
+              <Separator />
+
+              <SummaryItem
+                label="Entrega"
+                value="FRETE GRÁTIS"
+                extraClasses="py-3 lg:text-sm w-full"
+              />
+
+              <Separator />
+
+              <SummaryItem
+                label="Descontos"
+                value={formatPrice(orderTotalDiscounts)}
+                extraClasses="py-3 lg:text-sm w-full"
+              />
+
+              <Separator />
+
+              <SummaryItem
+                label={"Total"}
+                value={formatPrice(orderTotalPrice)}
+                extraClasses="text-sm font-bold lg:text-base"
+              />
+            </div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

@@ -21,16 +21,6 @@ export const CartContext = createContext<ICartContext>({
 export const CartProvider = ({ children }: IChildrenProps) => {
   const [products, setProducts] = useState<ICartProduct[]>([]);
 
-  useEffect(() => {
-    setProducts(
-      JSON.parse(localStorage.getItem("@fsw-store/cart:products") || "[]"),
-    );
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("@fsw-store/cart:products", JSON.stringify(products));
-  }, [products]);
-
   const subTotalProductPriceWithoutDiscount = useMemo(() => {
     return products.reduce((acc, product) => {
       return acc + Number(product.basePrice) * product.quantity;
@@ -68,7 +58,7 @@ export const CartProvider = ({ children }: IChildrenProps) => {
       return;
     }
 
-    setProducts((prev) => [...prev, { ...product }]);
+    setProducts((prev) => [...prev, product]);
   };
 
   const decreaseProductQuantity = (productId: string) => {
@@ -108,6 +98,16 @@ export const CartProvider = ({ children }: IChildrenProps) => {
       prev.filter((cartProduct) => cartProduct.id !== productId),
     );
   };
+
+  useEffect(() => {
+    localStorage.setItem("@fsw-store/cart:products", JSON.stringify(products));
+  }, [products]);
+
+  useEffect(() => {
+    setProducts(
+      JSON.parse(localStorage.getItem("@fsw-store/cart:products") || "[]"),
+    );
+  }, []);
 
   return (
     <CartContext.Provider
