@@ -1,6 +1,5 @@
 import { prismaClient } from "@/lib/prisma";
 import { ICartProduct } from "@/providers/cart/interfaces";
-import { Session } from "next-auth";
 
 export const createPrismaOrder = async (
   cartProducts: ICartProduct[],

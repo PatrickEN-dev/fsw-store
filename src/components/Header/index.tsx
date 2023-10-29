@@ -4,7 +4,6 @@ import {
   MenuIcon,
   ShoppingCartIcon,
   LogInIcon,
-  PercentCircleIcon,
   ListOrderedIcon,
   HomeIcon,
   LogOutIcon,

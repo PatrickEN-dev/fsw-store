@@ -4,7 +4,6 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useProduct } from "@/hooks/useProduct";
 import { twMerge } from "tailwind-merge";
-import { useCart } from "@/hooks/useCart";
 
 interface IChangeQuantityButtonProps {
   mainDivClassName?: string;
