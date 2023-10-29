@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  front:
+    container_name: fsw-store_client
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    command: sh -c "yarn dev"
+    volumes:
+      - .:/app
