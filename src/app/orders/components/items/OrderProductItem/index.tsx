@@ -27,7 +27,7 @@ const OrderProductItem = ({ orderProduct }: IOrderProductItemProps) => {
       </figure>
 
       <section className="flex w-full flex-col gap-1 lg:gap-2">
-        <header className="flex w-fit rounded-md bg-accent px-3 py-1">
+        <header className="flex w-fit rounded-md bg-accent px-2 py-1">
           <p className="text-[10px] lg:text-xs">
             Vendido e entregue por <span className="font-bold">FSW Store</span>
           </p>

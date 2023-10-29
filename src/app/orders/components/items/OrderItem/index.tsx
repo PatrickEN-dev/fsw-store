@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/accordion";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
-import OrderProductItem from "../OrderProductItem";
 import OrderProductItemList from "../../lists/OrderProductItemList";
 
 export interface IOrderItemProps {
