@@ -6,6 +6,8 @@ import { getServerSession } from "next-auth";
 import OrderList from "./components/lists/OrderList";
 import UserNotFound from "@/components/UserNotFound";
 
+export const dynamic = "force-dynamic";
+
 const OrderPage = async () => {
   const session = await getServerSession(authOptions);
 
