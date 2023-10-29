@@ -13,6 +13,7 @@ import SummaryItem from "@/components/SummaryItem";
 import formatPrice from "@/helpers/formatPrice";
 import { useMemo } from "react";
 import { computeProductTotalPrice } from "@/helpers/product";
+import { getOrderStatus } from "@/app/orders/helpers/status";
 
 export interface IOrderItemProps {
   order: Prisma.OrderGetPayload<{
@@ -61,7 +62,9 @@ const OrderItem = ({ order }: IOrderItemProps) => {
               <div className="flex items-center justify-between">
                 <div className="font-bold">
                   <p>Status</p>
-                  <span className="text-[#8162FF]">{order.status}</span>
+                  <span className="text-[#8162FF]">
+                    {getOrderStatus(order.status)}
+                  </span>
                 </div>
                 <div>
                   <p className="font-bold">Data</p>
