@@ -53,7 +53,7 @@ const OrderItem = ({ order }: IOrderItemProps) => {
               <h3 className="font-bold uppercase">
                 Pedido com {order.orderProducts.length} produto(s)
               </h3>
-              <span className="text-sm opacity-60">
+              <span className="text-sm font-bold opacity-60">
                 Feito em {format(order.createdAt, "dd/MM/yyyy 'às' HH:mm")}
               </span>
             </div>
