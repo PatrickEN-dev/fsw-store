@@ -18,8 +18,34 @@ export const CartContext = createContext<ICartContext>({
   removeProductFromCart: () => {},
 });
 
+const PRODUCTS_STORAGE_KEY = '@fsw-store/products';
+
 export const CartProvider = ({ children }: IChildrenProps) => {
-  const [products, setProducts] = useState<ICartProduct[]>([]);
+  const [products, setProducts] = useState<ICartProduct[]>(() => {
+    if (typeof window !== 'undefined') {
+      const storedProducts = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+      return storedProducts ? JSON.parse(storedProducts) : [];
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
+    }
+  }, [products]);
+
+  useEffect(() => {
+    const isBrowser = typeof window !== 'undefined';
+  
+    if (isBrowser) {
+      const storedProducts = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+      if (storedProducts) {
+        const parsedProducts = JSON.parse(storedProducts);
+        setProducts(parsedProducts);
+      }
+    }
+  }, []);
 
   const subTotalProductPriceWithoutDiscount = useMemo(() => {
     return products.reduce((acc, product) => {
@@ -54,7 +80,6 @@ export const CartProvider = ({ children }: IChildrenProps) => {
           return cartProduct;
         }),
       );
-
       return;
     }
 
@@ -98,16 +123,6 @@ export const CartProvider = ({ children }: IChildrenProps) => {
       prev.filter((cartProduct) => cartProduct.id !== productId),
     );
   };
-
-  useEffect(() => {
-    localStorage.setItem("@fsw-store/cart:products", JSON.stringify(products));
-  }, [products]);
-
-  useEffect(() => {
-    setProducts(
-      JSON.parse(localStorage.getItem("@fsw-store/cart:products") || "[]"),
-    );
-  }, []);
 
   return (
     <CartContext.Provider

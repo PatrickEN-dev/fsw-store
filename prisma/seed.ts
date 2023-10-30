@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+export const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
@@ -98,7 +98,8 @@ async function main() {
       data: {
         name: "Teclados",
         slug: "keyboards",
-        imageUrl: "https://fsw-store.s3.sa-east-1.amazonaws.com/keyboards.png",
+        imageUrl:
+          "https://fsw-store.s3.sa-east-1.amazonaws.com/02_redragon-gamer-ashe.png",
       },
     });
 
