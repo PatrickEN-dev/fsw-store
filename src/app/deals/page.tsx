@@ -1,11 +1,11 @@
-import ProductItem from "@/components/ProductItem";
 import { Badge } from "@/components/ui/badge";
 import { getProductDeals } from "@/helpers/getProductPrisma";
-import { computeProductTotalPrice } from "@/helpers/product";
+import { mapArrayToProductItems } from "@/helpers/mapArrayToProductItem";
 import { PercentIcon } from "lucide-react";
 
 const DealsPage = async () => {
   const productDeals = await getProductDeals();
+
   return (
     <div className="flex flex-col gap-8 p-5">
       <Badge
@@ -16,12 +16,7 @@ const DealsPage = async () => {
         Ofertas
       </Badge>
       <div className="grid grid-cols-2 gap-8">
-        {productDeals.map((product) => (
-          <ProductItem
-            key={product.id}
-            product={computeProductTotalPrice(product)}
-          />
-        ))}
+        {mapArrayToProductItems(productDeals)}
       </div>
     </div>
   );

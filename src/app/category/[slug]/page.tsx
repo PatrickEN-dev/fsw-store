@@ -6,6 +6,7 @@ import { mapArrayToProductItems } from "@/helpers/mapArrayToProductItem";
 
 const CategoryProducts = async ({ params }: IslugParams) => {
   const categorySlugProducts = await getCategorySlugProducts(params);
+
   return (
     <div className="flex flex-col gap-8 p-5">
       <Badge
