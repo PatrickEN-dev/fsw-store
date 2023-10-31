@@ -2,21 +2,8 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-async function clearAllProducts() {
-  try {
-    await prisma.product.deleteMany({});
-    await prisma.category.deleteMany({});
-
-    console.log("All tables cleared successfully");
-  } catch (error) {
-    console.error("Error clearing tables:", error);
-  }
-}
-
 async function main() {
   try {
-    await clearAllProducts();
-
     const mousesCategory = await prisma.category.create({
       data: {
         name: "Mouses",
