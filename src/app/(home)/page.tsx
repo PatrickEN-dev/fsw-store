@@ -9,9 +9,11 @@ import {
 } from "@/helpers/getProductPrisma";
 
 export default async function Home() {
-  const productDeals = await getProductDeals();
-  const keyBoards = await getKeyboards();
-  const mouses = await getMouses();
+  const [productDeals, keyBoards, mouses] = await Promise.all([
+    getProductDeals(),
+    getKeyboards(),
+    getMouses(),
+  ]);
 
   return (
     <main className="flex flex-col gap-8 py-8">
