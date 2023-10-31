@@ -1,9 +1,22 @@
-export const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
+async function clearAllProducts() {
+  try {
+    await prisma.product.deleteMany({});
+    await prisma.category.deleteMany({});
+
+    console.log("All tables cleared successfully");
+  } catch (error) {
+    console.error("Error clearing tables:", error);
+  }
+}
+
 async function main() {
   try {
+    await clearAllProducts();
+
     const mousesCategory = await prisma.category.create({
       data: {
         name: "Mouses",
@@ -99,7 +112,7 @@ async function main() {
         name: "Teclados",
         slug: "keyboards",
         imageUrl:
-          "https://fsw-store.s3.sa-east-1.amazonaws.com/02_redragon-gamer-ashe.png",
+          "https://fsw-store.s3.sa-east-1.amazonaws.com/01_logi-mx-keys-s.png",
       },
     });
 
@@ -399,7 +412,8 @@ async function main() {
       data: {
         name: "Monitores",
         slug: "monitors",
-        imageUrl: "https://fsw-store.s3.sa-east-1.amazonaws.com/monitors.png",
+        imageUrl:
+          "https://fsw-store.s3.sa-east-1.amazonaws.com/01_dell-S2421HN.png",
       },
     });
 

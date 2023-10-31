@@ -20,27 +20,22 @@ model Product {
   name               String
   slug               String
   description        String
+  categoryId         String
   basePrice          Decimal        @db.Decimal(8, 2)
   discountPercentage Int            @default(0)
   imageUrls          String[]
-  category           Category       @relation(fields: [categoryId], references: [id])
-  categoryId         String
   OrderProduct       OrderProduct[]
-}
-
-enum OrderStatus {
-  WAITING_FOR_PAYMENT
-  PAYMENT_CONFIRMED
+  category           Category       @relation(fields: [categoryId], references: [id])
 }
 
 model Order {
   id            String         @id @default(uuid())
   status        OrderStatus    @default(WAITING_FOR_PAYMENT)
-  orderProducts OrderProduct[]
   userId        String
-  user          User           @relation(fields: [userId], references: [id])
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @default(now()) @updatedAt
+  user          User           @relation(fields: [userId], references: [id])
+  orderProducts OrderProduct[]
 }
 
 model OrderProduct {
@@ -49,9 +44,9 @@ model OrderProduct {
   discountPercentage Int     @default(0)
   quantity           Int
   productId          String
-  product            Product @relation(fields: [productId], references: [id])
   orderId            String
   order              Order   @relation(fields: [orderId], references: [id])
+  product            Product @relation(fields: [productId], references: [id])
 }
 
 model Account {
@@ -60,15 +55,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -88,8 +82,8 @@ model User {
   emailVerified DateTime?
   image         String?
   accounts      Account[]
-  sessions      Session[]
   Order         Order[]
+  sessions      Session[]
 }
 
 model VerificationToken {
@@ -98,4 +92,9 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum OrderStatus {
+  WAITING_FOR_PAYMENT
+  PAYMENT_CONFIRMED
 }
