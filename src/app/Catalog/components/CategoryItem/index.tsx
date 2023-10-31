@@ -16,6 +16,7 @@ const CategoryItem = ({ category }: ICategoryItemProps) => {
             alt={category.name}
             width={0}
             height={0}
+            priority={true}
             sizes={"100vw"}
             className="h-auto max-h-[70%] w-auto max-w-[80%] object-contain"
           />
