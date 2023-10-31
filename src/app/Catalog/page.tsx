@@ -1,8 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { ShapesIcon } from "lucide-react";
-import CategoryList from "./components/CategoryList";
+import { getCategories } from "@/helpers/getCategoryPrisma";
+import CategoryItem from "./components/CategoryItem";
 
-const CatalogPage = () => {
+const CatalogPage = async () => {
+  const categories = await getCategories();
   return (
     <main className="flex flex-col gap-8 p-5">
       <Badge
@@ -13,7 +15,13 @@ const CatalogPage = () => {
         Catálogo
       </Badge>
 
-      <CategoryList />
+      <ul className="grid grid-cols-2 gap-8">
+        {categories.map((category) => (
+          <CategoryItem key={category.id} category={category} />
+        ))}
+      </ul>
+
+      {/* <CategoryList /> */}
     </main>
   );
 };
