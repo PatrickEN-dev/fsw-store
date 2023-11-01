@@ -6,6 +6,14 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/Catalog", // A rota com "C" maiúsculo
+        destination: "/catalog", // A rota com "C" minúsculo
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

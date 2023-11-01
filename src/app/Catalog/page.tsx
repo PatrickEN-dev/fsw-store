@@ -6,20 +6,20 @@ import { ShapesIcon } from "lucide-react";
 const CatalogPage = async () => {
   const categories = await getCategories();
   return (
-    <main className="flex flex-col gap-8 p-5">
+    <div className="flex flex-col gap-8 p-5">
       <Badge variant="heading">
         <ShapesIcon size={16} />
         Catálogo
       </Badge>
 
-      <ul className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-2 gap-8">
         {categories.map((category) => (
           <CategoryItem key={category.id} category={category} />
         ))}
-      </ul>
+      </div>
 
       {/* <CategoryList /> */}
-    </main>
+    </div>
   );
 };
 
