@@ -95,7 +95,7 @@ function Header() {
             </SheetClose>
 
             <SheetClose asChild>
-              <Link href="/catalog">
+              <Link href="/Catalog">
                 <Button
                   variant="outline"
                   className="w-full justify-start gap-2"
