@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { PackageSearchIcon } from "lucide-react";
 import { getServerSession } from "next-auth";
 import OrderList from "./components/lists/OrderList";
-import UserNotFound from "@/components/UserNotFound";
+import ErrorMessage from "@/components/ErrorMessage";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +13,10 @@ const OrderPage = async () => {
 
   if (!session || !session.user) {
     return (
-      <UserNotFound message="Faça login para ter acesso ao seus pedidos" />
+      <ErrorMessage
+        firstMessage={"Acesso negado!"}
+        secondMessage={"Faça login para ver seus pedidos"}
+      />
     );
   }
 

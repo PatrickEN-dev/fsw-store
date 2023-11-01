@@ -5,6 +5,7 @@ import { ShapesIcon } from "lucide-react";
 
 const CatalogPage = async () => {
   const categories = await getCategories();
+
   return (
     <div className="flex flex-col gap-8 p-5">
       <Badge variant="heading">
@@ -17,8 +18,6 @@ const CatalogPage = async () => {
           <CategoryItem key={category.id} category={category} />
         ))}
       </div>
-
-      {/* <CategoryList /> */}
     </div>
   );
 };

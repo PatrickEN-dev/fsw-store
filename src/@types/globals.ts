@@ -13,3 +13,8 @@ export interface IChildrenProps {
 export interface IClassNameProps {
   className?: string;
 }
+
+export interface IErrorProps {
+  error?: Error;
+  reset: () => void;
+}
