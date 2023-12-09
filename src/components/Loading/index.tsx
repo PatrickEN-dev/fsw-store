@@ -1,6 +1,6 @@
 "use client";
 
-import { TailSpin } from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner"
 
 const Loading = () => {
   return (
